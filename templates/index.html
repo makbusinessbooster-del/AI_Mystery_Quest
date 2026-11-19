@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">A MAK PRIME ORIGINAL EXPERIENCE</div>
+    <h1>Every clue has a story.<br><em>Every mystery has an answer.</em></h1>
+    <p>Step into immersive investigations, question the evidence, challenge your instincts and uncover the truth with Detective AI.</p>
+    <div class="actions"><a class="btn gold" href="{{ url_for('guest') }}">Play as Guest</a><a class="btn outline" href="{{ url_for('register') }}">Create Account</a></div>
+    <div class="status-line"><span class="dot"></span> Detective AI: {{ "Groq connected" if ai_ready else "Demo mode active" }}</div>
+  </div>
+  <div class="hero-art"><div class="orb">CASE<br><strong>001</strong></div><div class="evidence e1">EVIDENCE A</div><div class="evidence e2">CLASSIFIED</div><div class="evidence e3">TRUTH IS HIDDEN</div></div>
+</section>
+<section class="section-head"><div><div class="eyebrow">YOUR NEXT INVESTIGATION</div><h2>Featured cases</h2></div><a href="{{ url_for('dashboard') }}">View all cases →</a></section>
+<div class="case-grid">
+{% for case in cases %}
+  <article class="case-card"><div class="case-top"><span class="tag">{{ case.category }}</span><span class="difficulty">{{ case.difficulty }}</span></div><h3>{{ case.title }}</h3><p>{{ case.synopsis[:125] }}...</p><a href="{{ url_for('play_case', case_id=case.id) }}">Investigate case →</a></article>
+{% endfor %}
+</div>
+<section class="brand-strip"><b>MAK PRIME</b><span>Technology. Intelligence. Growth.</span><small>Original game concept · AI-powered mystery experience</small></section>
+{% endblock %}

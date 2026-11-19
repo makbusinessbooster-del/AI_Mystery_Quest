@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-head"><div><div class="eyebrow">DETECTIVE HEADQUARTERS</div><h1>Welcome, {{ name }}</h1><p class="muted">Choose a case. Follow the evidence. Find the truth.</p></div><div class="level-card"><span>DETECTIVE LEVEL</span><strong>{{ level }}</strong><small>{{ xp }} XP</small></div></div>
+<div class="stat-row"><div class="stat"><b>{{ cases|length }}</b><span>Available cases</span></div><div class="stat"><b>{{ xp }}</b><span>Total XP</span></div><div class="stat"><b>{{ sessions|length }}</b><span>Recent investigations</span></div></div>
+<div class="section-head"><div><div class="eyebrow">CASE FILES</div><h2>Available investigations</h2></div>{% if current_user.is_authenticated %}<a href="{{ url_for('multiplayer') }}">Play with friends →</a>{% endif %}</div>
+<div class="case-grid">
+{% for case in cases %}
+<article class="case-card"><div class="case-top"><span class="tag">{{ case.category }}</span><span class="difficulty">{{ case.difficulty }}</span></div><h3>{{ case.title }}</h3><p>{{ case.synopsis[:145] }}...</p><a href="{{ url_for('play_case', case_id=case.id) }}">Open case file →</a></article>
+{% endfor %}
+</div>
+{% if sessions %}<div class="section-head"><div><div class="eyebrow">YOUR RECORD</div><h2>Recent investigations</h2></div></div><div class="history">{% for s in sessions %}<div><b>{{ s.case.title }}</b><span>{{ "Solved" if s.completed else "In progress" }} · {{ s.score }} points</span></div>{% endfor %}</div>{% endif %}
+{% endblock %}

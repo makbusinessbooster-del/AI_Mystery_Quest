@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block title %}Leaderboard{% endblock %}
+{% block content %}<div class="eyebrow">GLOBAL STANDINGS</div><h1>Top detectives</h1><p class="muted">Ranked by earned experience points.</p>
+<div class="leaderboard">{% for user in users %}<div class="rank-row"><b>#{{ loop.index }}</b><strong>{{ user.username }}</strong><span>Level {{ user.level }}</span><em>{{ user.xp }} XP</em></div>{% else %}<p>No detectives ranked yet. Be the first to solve a case.</p>{% endfor %}</div>{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}{{ mode|title }}{% endblock %}
+{% block content %}
+<div class="auth-wrap"><div class="auth-panel">
+<div class="eyebrow">MAK PRIME PRESENTS</div><h1>{{ "Create your detective profile" if mode == "register" else "Welcome back, Detective" }}</h1>
+<p class="muted">Your next case is waiting. Keep your instincts sharp.</p>
+<form method="post" class="form">
+{% if mode == "register" %}
+<label>Username<input name="username" minlength="3" maxlength="40" required autocomplete="username"></label>
+<label>Email<input name="email" type="email" required autocomplete="email"></label>
+{% else %}
+<label>Email or username<input name="identity" required autocomplete="username"></label>
+{% endif %}
+<label>Password<input name="password" type="password" minlength="8" required autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}"></label>
+<button class="btn gold full">{{ "Create Account" if mode == "register" else "Sign In" }}</button>
+</form>
+<p class="muted small">{% if mode == "register" %}Already registered? <a href="{{ url_for('login') }}">Sign in</a>{% else %}New detective? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}</p>
+</div><div class="auth-side"><div class="seal">MQ</div><h2>THE TRUTH<br>IS OUT THERE.</h2><p>Observe. Connect. Deduce.</p></div></div>
+{% endblock %}

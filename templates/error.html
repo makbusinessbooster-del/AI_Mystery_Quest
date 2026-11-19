@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}{{ code }}{% endblock %}
+{% block content %}<div class="error-page"><div class="eyebrow">INVESTIGATION INTERRUPTED</div><h1>{{ code }}</h1><p>{{ message }}</p><a class="btn gold" href="{{ url_for('index') }}">Return to headquarters</a></div>{% endblock %}

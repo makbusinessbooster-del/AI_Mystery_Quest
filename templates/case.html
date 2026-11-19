@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block title %}{{ case.title }}{% endblock %}
+{% block content %}
+<div class="case-heading"><div><div class="eyebrow">CASE FILE #{{ "%03d"|format(case.id) }} · {{ case.category }}</div><h1>{{ case.title }}</h1><p class="muted">{{ case.location }} · {{ case.difficulty }} difficulty</p></div><span class="stamp">CLASSIFIED</span></div>
+<div class="play-layout">
+<div class="investigation">
+<section class="panel"><h2>Mission briefing</h2><p>{{ case.synopsis }}</p></section>
+<section class="panel"><h2>Persons of interest</h2><div class="preline">{{ case.suspects }}</div></section>
+<section class="panel"><h2>Evidence collected</h2><div class="preline">{{ case.evidence }}</div></section>
+<section class="panel puzzle"><div class="eyebrow">YOUR TASK</div><h2>Investigative puzzle</h2><p>{{ case.puzzle }}</p>
+<label>Your conclusion<input id="answer" placeholder="Who is responsible, or what is the answer?"></label>
+<button class="btn gold" id="submit-answer" data-case="{{ case.id }}">Submit deduction</button><div id="answer-result" class="result" aria-live="polite"></div>
+<div class="actions"><button class="btn outline" id="get-hint" data-case="{{ case.id }}">Request AI hint</button><span id="hint-result" class="muted small"></span></div>
+</section>
+</div>
+<aside class="side-stack">
+<section class="panel ai-panel"><div class="ai-title"><span class="ai-pulse"></span><div><b>DETECTIVE AI</b><small>Case-aware assistant</small></div></div><p class="muted small">Ask about timelines, evidence or inconsistencies. The assistant will avoid revealing the solution.</p>
+<div id="chat-log" class="chat-log"><div class="bubble bot">Detective AI online. What would you like to examine?</div></div>
+<div class="chat-input"><input id="chat-message" placeholder="Ask a question..."><button id="send-chat" data-case="{{ case.id }}">Send</button></div><small id="ai-mode" class="muted">Groq AI or Demo Mode</small>
+</section>
+<div class="panel"><div class="eyebrow">DETECTIVE NOTE</div><p class="muted small">Separate verified evidence from assumptions. A strong theory should explain the timeline and physical clues.</p></div>
+</aside></div>
+{% endblock %}

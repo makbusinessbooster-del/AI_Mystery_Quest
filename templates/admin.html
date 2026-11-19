@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}
+{% block content %}
+<div class="eyebrow">CONTROL ROOM</div><h1>Administrator dashboard</h1><p class="muted">Manage published investigations and review player accounts.</p>
+<div class="admin-grid"><section class="panel"><h2>Add a case</h2><form method="post" action="{{ url_for('admin_case') }}" class="form">
+<label>Title<input name="title" required></label><label>Category<select name="category">{% for c in ["Murder Mystery","Missing Person","Robbery & Theft","Secret Agent / Spy","Historical Mystery","Cybercrime","Supernatural Mystery"] %}<option>{{ c }}</option>{% endfor %}</select></label>
+<label>Difficulty<select name="difficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+<label>Synopsis<textarea name="synopsis" required></textarea></label><label>Location<input name="location"></label><label>Suspects<textarea name="suspects" required></textarea></label><label>Evidence<textarea name="evidence" required></textarea></label><label>Puzzle<textarea name="puzzle" required></textarea></label><label>Hint<textarea name="hint" required></textarea></label><label>Accepted answer keywords (separate with |)<input name="solution_keywords" required></label><label>Solution explanation<textarea name="solution_explanation" required></textarea></label><button class="btn gold">Publish case</button></form>
+<button class="btn outline" id="generate-ai-case">Generate with Groq AI</button><p id="generate-result" class="muted small"></p></section>
+<section class="panel"><h2>Player accounts ({{ users|length }})</h2><div class="admin-list">{% for u in users %}<div><b>{{ u.username }}</b><span>{{ u.email }} · {{ u.xp }} XP{% if u.is_admin %} · ADMIN{% endif %}</span></div>{% endfor %}</div><h2>Published cases ({{ cases|length }})</h2><div class="admin-list">{% for c in cases %}<div><b>{{ c.title }}</b><span>{{ c.category }} · {{ c.difficulty }}</span></div>{% endfor %}</div></section></div>
+{% endblock %}
